@@ -17,9 +17,9 @@ from pathlib import Path
 
 def icon_cutter(image):
     # Cuts the icons out of the original photo
-    theight = 53
+    theight = 53   # was 53
     twidth = 25
-    bheight = 83
+    bheight = 83   # was 83
     bwidth = 58
     icons = []
     for i in range(9):
@@ -45,7 +45,7 @@ def image_processor(mypath, file_names):
             trans_mask = image[:, :, 3] == 0
             image[trans_mask] = [41, 31, 10, 255]
             image2 = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
-            image3 = cv2.GaussianBlur(image2, (1, 3), cv2.BORDER_DEFAULT)
+            image3 = cv2.GaussianBlur(image2, (5, 5), cv2.BORDER_DEFAULT)
             blurred_imgs.append(image3)
             # plt.imshow(cv2.cvtColor(image3, cv2.COLOR_BGR2RGB))
             # plt.show()
@@ -79,7 +79,7 @@ def main():
 
     blurred_icons = []
     for i in range(9):
-        crop = cv2.GaussianBlur(icons[i], (1, 3), cv2.BORDER_DEFAULT)
+        crop = cv2.GaussianBlur(icons[i], (5, 5), cv2.BORDER_DEFAULT)
         blurred_icons.append(crop)
 
     # A few notes
@@ -141,12 +141,14 @@ def main():
             if base_base > currentBest:
                 currentBest = base_base
                 indexOfBest = j
-            # print("Distance between the first icon and " +file_names[j]+ " is " +str(base_base))
-            # print("Current best is " + file_names[indexOfBest])
+            #print("Distance between the first icon and " +file_names[j]+ " is " +str(base_base))
+            #print("Current best is " + file_names[indexOfBest])
         print("Item discovered was " + file_names[indexOfBest] + " with a score of " + str(currentBest))
 
 
-        # todo: implement image comparisons
+        # TODO: implement image comparisons
+        #       Comparing histograms didn't work for different Addy plateskirts
+        #       Try feature matching, pray its not too hard to implement
 
 
 if __name__ == '__main__':
