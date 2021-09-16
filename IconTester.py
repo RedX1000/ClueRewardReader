@@ -64,6 +64,9 @@ def iterative_imgs(mypath, file_names):
             cv2.imwrite(destination + "/icon " + str(index) + ".png", icon_list[i][j])
             index += 1
 
+
+
+
 clue_tier = 0
 tier = ''
 mypath = 'images/Reward Files/sample clues/'
